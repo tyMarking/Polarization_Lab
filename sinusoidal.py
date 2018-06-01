@@ -10,20 +10,22 @@ import csv, math
 
 with open('data.csv', newline='') as csvfile:
     data = []
-    reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    next(reader)
+    reader = csv.reader(csvfile, delimiter='\t', quotechar='|')
+#    next(reader)
     for row in reader:
 #        print(', '.join(row))
 #        print(row[0])
         data.append([2*math.pi*float(str(row[0]))/360, int(str(row[1]))])
-
+    print(data)
+        
 #params Acos(Bx+C)+D
 A = -100
-B = 2
+B = 1
 C = 0
 D = 100
 
-
+data = data[19:]
+print(data)
 
 def getError(a, b, c, d):
     errorSum = 0
@@ -36,9 +38,9 @@ def getError(a, b, c, d):
 
 #print(getError(A,B,C,D))
 
-l = 0.000001
+l = 0.0000001
 
-for epoch in range(5000):
+for epoch in range(1000):
     error = getError(A,B,C,D)
     
     dAs = []
@@ -69,7 +71,6 @@ for epoch in range(5000):
     B -= dB
     C -= dC
     D -= dD
-    
     print(getError(A,B,C,D))
         
 print(str(A)+"cos("+str(B)+"x + "+str(C)+") + "+ str(D))
